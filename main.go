@@ -49,7 +49,7 @@ func main() {
 		//fmt.Println(userFamily)
 
 		//Arrays and slices//
-		var booking = []string{} // define a slice
+		var booking = []string{} // define a slice//
 		booking = append(booking, userName+" "+userFamily)
 		fmt.Println(booking)
 
