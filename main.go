@@ -48,7 +48,7 @@ func main() {
 		//fmt.Printf("Data Type of conferanceName is: %T \n conferanceTicket is: %T \n remainingTicket is: %T\n userName is: %T \n userFamily is: %T", conferanceName, conferanceTicket, remainingTicket, userName, &userFamily)
 		//fmt.Println(userFamily)
 
-		//Arrays and slices
+		//Arrays and slices//
 		var booking = []string{} // define a slice
 		booking = append(booking, userName+" "+userFamily)
 		fmt.Println(booking)
