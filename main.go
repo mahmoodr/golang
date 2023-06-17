@@ -69,7 +69,7 @@ func main() {
 				break
 			}
 		} else {
-			fmt.Printf("fuck off!")
+			fmt.Printf("out of range!")
 		}
 
 	}
