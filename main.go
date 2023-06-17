@@ -10,6 +10,8 @@ func main() {
 	const conferanceTicket = 50
 	var remainingTicket int = 50
 
+	greetuser(conferanceName)
+
 	fmt.Printf("\n\n\nWelcome to %v booking application system.\n", conferanceName)
 	fmt.Printf("We have total of %v ticket and %v are still available\n", conferanceTicket, remainingTicket)
 	fmt.Printf("Please first book your ticket to participate in the conferance.\n\n\n")
@@ -40,13 +42,11 @@ func main() {
 		fmt.Printf("Number of ticket:\n")
 		fmt.Scan(&userTicket)
 
-		isValidName := len(userName) >= 2 && len(userFamily) >= 2
-		isValidEmail := strings.Contains(userEmail, "@")
-		isValidTicketNumber := userTicket > 0 && userTicket <= remainingTicket
+		inputValidation(userName, userFamily, userEmail, userTicket, remainingTicket)
 
 		remainingTicket = remainingTicket - userTicket
 
-		if isValidEmail && isValidName && isValidTicketNumber {
+		if inputValidation() {
 			fmt.Printf("the remaining tickets is: %v\n", remainingTicket)
 
 			fmt.Printf("welcome %v %v and thanks for purchasing %v tickets. you'll recieve confirmation email soon!\n", userName, userFamily, userTicket)
@@ -96,4 +96,15 @@ func main() {
 		fmt.Printf("no valid city")
 	}
 
+}
+
+func greetuser(conferanceName string) {
+	fmt.Println("welcome to confrance!")
+}
+
+func inputValidation(Name string, Family string, email string, ticket int, remaining int) (bool, bool, bool, int) {
+	isValidName := len(Name) >= 2 && len(Family) >= 2
+	isValidEmail := strings.Contains(email, "@")
+	isValidTicketNumber := ticket > 0 && ticket <= remaining
+	return isValidName, isValidEmail, isValidTicketNumber
 }
