@@ -41,23 +41,36 @@ func main() {
 		fmt.Scan(&userTicket)
 
 		remainingTicket = remainingTicket - userTicket
-		fmt.Printf("the remaining tickets is: %v\n", remainingTicket)
 
-		fmt.Printf("welcome %v %v and thanks for purchasing %v tickets. you'll recieve confirmation email soon!\n", userName, userFamily, userTicket)
+		if userTicket >= remainingTicket {
+			fmt.Printf("the remaining tickets is: %v\n", remainingTicket)
 
-		//fmt.Printf("Data Type of conferanceName is: %T \n conferanceTicket is: %T \n remainingTicket is: %T\n userName is: %T \n userFamily is: %T", conferanceName, conferanceTicket, remainingTicket, userName, &userFamily)
-		//fmt.Println(userFamily)
+			fmt.Printf("welcome %v %v and thanks for purchasing %v tickets. you'll recieve confirmation email soon!\n", userName, userFamily, userTicket)
 
-		//Arrays and slices//
-		var booking = []string{} // define a slice//
-		booking = append(booking, userName+" "+userFamily)
-		fmt.Println(booking)
+			//fmt.Printf("Data Type of conferanceName is: %T \n conferanceTicket is: %T \n remainingTicket is: %T\n userName is: %T \n userFamily is: %T", conferanceName, conferanceTicket, remainingTicket, userName, &userFamily)
+			//fmt.Println(userFamily)
 
-		firstNames := []string{}
-		for _, booking := range booking {
-			var names = strings.Fields(booking)
-			firstNames = append(firstNames, names[0])
+			//Arrays and slices//
+			var booking = []string{} // define a slice//
+			booking = append(booking, userName+" "+userFamily)
+			fmt.Println(booking)
+
+			firstNames := []string{}
+			for _, booking := range booking {
+				var names = strings.Fields(booking)
+				firstNames = append(firstNames, names[0])
+			}
+			fmt.Printf("the first names %v\n", firstNames)
+
+			// loop to check the remaining tickets and stop when it's finished
+			if remainingTicket == 0 {
+				//end program
+				fmt.Println("our conferance is sold out!")
+				break
+			}
+		} else {
+			fmt.Printf("fuck off!")
 		}
-		fmt.Printf("the first names %v\n", firstNames)
+
 	}
 }
