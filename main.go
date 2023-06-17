@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 func main() {
@@ -13,41 +14,50 @@ func main() {
 	fmt.Printf("We have total of %v ticket and %v are still available\n", conferanceTicket, remainingTicket)
 	fmt.Printf("Please first book your ticket to participate in the conferance.\n\n\n")
 
-	var userName string
-	var userFamily string
-	var userEmail string
-	var userPhone string
-	var userTicket int
+	for {
 
-	//ask for user input
-	fmt.Printf("Please Enter your personal data to register.\n")
+		var userName string
+		var userFamily string
+		var userEmail string
+		var userPhone string
+		var userTicket int
 
-	fmt.Printf("First name:\n")
-	fmt.Scan(&userName)
+		//ask for user input
+		fmt.Printf("Please Enter your personal data to register.\n")
 
-	fmt.Printf("Family name:\n")
-	fmt.Scan(&userFamily)
+		fmt.Printf("First name:\n")
+		fmt.Scan(&userName)
 
-	fmt.Printf("Email:\n")
-	fmt.Scan(&userEmail)
+		fmt.Printf("Family name:\n")
+		fmt.Scan(&userFamily)
 
-	fmt.Printf("Phone:\n")
-	fmt.Scan(&userPhone)
+		fmt.Printf("Email:\n")
+		fmt.Scan(&userEmail)
 
-	fmt.Printf("Number of ticket:\n")
-	fmt.Scan(&userTicket)
+		fmt.Printf("Phone:\n")
+		fmt.Scan(&userPhone)
 
-	remainingTicket = remainingTicket - userTicket
-	fmt.Printf("the remaining tickets is: %v\n", remainingTicket)
+		fmt.Printf("Number of ticket:\n")
+		fmt.Scan(&userTicket)
 
-	fmt.Printf("welcome %v %v and thanks for purchasing %v tickets. you'll recieve confirmation email soon!\n", userName, userFamily, userTicket)
+		remainingTicket = remainingTicket - userTicket
+		fmt.Printf("the remaining tickets is: %v\n", remainingTicket)
 
-	//fmt.Printf("Data Type of conferanceName is: %T \n conferanceTicket is: %T \n remainingTicket is: %T\n userName is: %T \n userFamily is: %T", conferanceName, conferanceTicket, remainingTicket, userName, &userFamily)
-	//fmt.Println(userFamily)
+		fmt.Printf("welcome %v %v and thanks for purchasing %v tickets. you'll recieve confirmation email soon!\n", userName, userFamily, userTicket)
 
-	//Arrays and slices
-	var booking = []string{} // define a slice
-	booking = append(booking, userName+" "+userFamily)
-	fmt.Println(booking)
+		//fmt.Printf("Data Type of conferanceName is: %T \n conferanceTicket is: %T \n remainingTicket is: %T\n userName is: %T \n userFamily is: %T", conferanceName, conferanceTicket, remainingTicket, userName, &userFamily)
+		//fmt.Println(userFamily)
 
+		//Arrays and slices
+		var booking = []string{} // define a slice
+		booking = append(booking, userName+" "+userFamily)
+		fmt.Println(booking)
+
+		firstNames := []string{}
+		for _, booking := range booking {
+			var names = strings.Fields(booking)
+			firstNames = append(firstNames, names[0])
+		}
+		fmt.Printf("the first names %v\n", firstNames)
+	}
 }
