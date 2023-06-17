@@ -73,8 +73,27 @@ func main() {
 				break
 			}
 		} else {
-			fmt.Printf("User input not valid!")
+			if !isValidEmail {
+				fmt.Printf("Email not valid!")
+			}
+			if !isValidName {
+				fmt.Printf("first or last name not valid")
+			}
+			if !isValidTicketNumber {
+				fmt.Printf("requested ticket number not valid")
+			}
 		}
 
 	}
+
+	city := "london"
+	switch city {
+	case "new york", "istanbul":
+		//new yourk booking
+	case "singapure", "hong kong":
+		//singapore booking
+	default:
+		fmt.Printf("no valid city")
+	}
+
 }
