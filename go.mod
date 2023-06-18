@@ -1,2 +1,3 @@
-module booking_app
-go 1.20
+module booking-app
+
+go 1.17
