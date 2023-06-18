@@ -1,3 +1,5 @@
+//booking app logic
+
 package main
 
 import (
@@ -102,7 +104,7 @@ func greetuser(conferanceName string) {
 	fmt.Println("welcome to confrance!")
 }
 
-func inputValidation(Name string, Family string, email string, ticket int, remaining int) (bool, bool, bool, int) {
+func inputValidation(Name string, Family string, email string, ticket int, remaining int) (bool, bool, bool) {
 	isValidName := len(Name) >= 2 && len(Family) >= 2
 	isValidEmail := strings.Contains(email, "@")
 	isValidTicketNumber := ticket > 0 && ticket <= remaining
