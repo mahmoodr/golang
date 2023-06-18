@@ -2,113 +2,120 @@ package main
 
 import (
 	"fmt"
-	"strings"
+	"sync"
+	"time"
 )
 
+const conferenceTickets int = 50
+
+var conferenceName = "Go Conference"
+var remainingTickets uint = 50
+var bookings = make([]UserData, 0)
+
+type UserData struct {
+	firstName       string
+	lastName        string
+	email           string
+	numberOfTickets uint
+}
+
+var wg = sync.WaitGroup{}
+
 func main() {
-	var conferanceName = "GoLang conferance"
-	const conferanceTicket = 50
-	var remainingTicket int = 50
 
-	greetuser(conferanceName)
+	greetUsers()
 
-	fmt.Printf("\n\n\nWelcome to %v booking application system.\n", conferanceName)
-	fmt.Printf("We have total of %v ticket and %v are still available\n", conferanceTicket, remainingTicket)
-	fmt.Printf("Please first book your ticket to participate in the conferance.\n\n\n")
+	// for {
+	firstName, lastName, email, userTickets := getUserInput()
+	isValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, email, userTickets)
 
-	for {
+	if isValidName && isValidEmail && isValidTicketNumber {
 
-		var userName string
-		var userFamily string
-		var userEmail string
-		var userPhone string
-		var userTicket int
+		bookTicket(userTickets, firstName, lastName, email)
 
-		//ask for user input
-		fmt.Printf("Please Enter your personal data to register.\n")
+		wg.Add(1)
+		go sendTicket(userTickets, firstName, lastName, email)
 
-		fmt.Printf("First name:\n")
-		fmt.Scan(&userName)
+		firstNames := getFirstNames()
+		fmt.Printf("The first names of bookings are: %v\n", firstNames)
 
-		fmt.Printf("Family name:\n")
-		fmt.Scan(&userFamily)
-
-		fmt.Printf("Email:\n")
-		fmt.Scan(&userEmail)
-
-		fmt.Printf("Phone:\n")
-		fmt.Scan(&userPhone)
-
-		fmt.Printf("Number of ticket:\n")
-		fmt.Scan(&userTicket)
-
-		inputValidation(userName, userFamily, userEmail, userTicket, remainingTicket)
-
-		remainingTicket = remainingTicket - userTicket
-
-		var userData = make(map[string]string)
-
-		if inputValidation() {
-			fmt.Printf("the remaining tickets is: %v\n", remainingTicket)
-
-			fmt.Printf("welcome %v %v and thanks for purchasing %v tickets. you'll recieve confirmation email soon!\n", userName, userFamily, userTicket)
-
-			//fmt.Printf("Data Type of conferanceName is: %T \n conferanceTicket is: %T \n remainingTicket is: %T\n userName is: %T \n userFamily is: %T", conferanceName, conferanceTicket, remainingTicket, userName, &userFamily)
-			//fmt.Println(userFamily)
-
-			//Arrays and slices//
-			var booking = []string{} // define a slice//
-			booking = append(booking, userName+" "+userFamily)
-			fmt.Println(booking)
-
-			firstNames := []string{}
-			for _, booking := range booking {
-				var names = strings.Fields(booking)
-				firstNames = append(firstNames, names[0])
-			}
-			fmt.Printf("the first names %v\n", firstNames)
-
-			// loop to check the remaining tickets and stop when it's finished
-			if remainingTicket == 0 {
-				//end program
-				fmt.Println("our conferance is sold out!")
-				break
-			}
-		} else {
-			if !isValidEmail {
-				fmt.Printf("Email not valid!")
-			}
-			if !isValidName {
-				fmt.Printf("first or last name not valid")
-			}
-			if !isValidTicketNumber {
-				fmt.Printf("requested ticket number not valid")
-			}
+		if remainingTickets == 0 {
+			// end program
+			fmt.Println("Our conference is booked out. Come back next year.")
+			// break
 		}
+	} else {
+		if !isValidName {
+			fmt.Println("first name or last name you entered is too short")
+		}
+		if !isValidEmail {
+			fmt.Println("email address you entered doesn't contain @ sign")
+		}
+		if !isValidTicketNumber {
+			fmt.Println("number of tickets you entered is invalid")
+		}
+	}
+	//}
+	wg.Wait()
+}
 
+func greetUsers() {
+	fmt.Printf("Welcome to %v booking application\n", conferenceName)
+	fmt.Printf("We have total of %v tickets and %v are still available.\n", conferenceTickets, remainingTickets)
+	fmt.Println("Get your tickets here to attend")
+}
+
+func getFirstNames() []string {
+	firstNames := []string{}
+	for _, booking := range bookings {
+		firstNames = append(firstNames, booking.firstName)
+	}
+	return firstNames
+}
+
+func getUserInput() (string, string, string, uint) {
+	var firstName string
+	var lastName string
+	var email string
+	var userTickets uint
+
+	fmt.Println("Enter your first name: ")
+	fmt.Scan(&firstName)
+
+	fmt.Println("Enter your last name: ")
+	fmt.Scan(&lastName)
+
+	fmt.Println("Enter your email address: ")
+	fmt.Scan(&email)
+
+	fmt.Println("Enter number of tickets: ")
+	fmt.Scan(&userTickets)
+
+	return firstName, lastName, email, userTickets
+}
+
+func bookTicket(userTickets uint, firstName string, lastName string, email string) {
+	remainingTickets = remainingTickets - userTickets
+
+	var userData = UserData{
+		firstName:       firstName,
+		lastName:        lastName,
+		email:           email,
+		numberOfTickets: userTickets,
 	}
 
-	city := "london"
-	switch city {
-	case "new york", "istanbul":
-		//new yourk booking
-	case "singapure", "hong kong":
-		//singapore booking
-	default:
-		fmt.Printf("no valid city")
-	}
+	bookings = append(bookings, userData)
+	fmt.Printf("List of bookings is %v\n", bookings)
 
+	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
+	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 }
 
-func greetuser(conferanceName string) {
-	fmt.Println("welcome to confrance!")
+func sendTicket(userTickets uint, firstName string, lastName string, email string) {
+	time.Sleep(50 * time.Second)
+	var ticket = fmt.Sprintf("%v tickets for %v %v", userTickets, firstName, lastName)
+	fmt.Println("#################")
+	fmt.Printf("Sending ticket:\n %v \nto email address %v\n", ticket, email)
+	fmt.Println("#################")
+	wg.Done()
 }
-
-func inputValidation(Name string, Family string, email string, ticket int, remaining int) (bool, bool, bool) {
-	isValidName := len(Name) >= 2 && len(Family) >= 2
-	isValidEmail := strings.Contains(email, "@")
-	isValidTicketNumber := ticket > 0 && ticket <= remaining
-	return isValidName, isValidEmail, isValidTicketNumber
-}
-
-//add comment
