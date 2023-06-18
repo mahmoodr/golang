@@ -110,3 +110,5 @@ func inputValidation(Name string, Family string, email string, ticket int, remai
 	isValidTicketNumber := ticket > 0 && ticket <= remaining
 	return isValidName, isValidEmail, isValidTicketNumber
 }
+
+//add comment
