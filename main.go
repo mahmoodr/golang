@@ -1,5 +1,3 @@
-//booking app logic
-
 package main
 
 import (
@@ -47,6 +45,8 @@ func main() {
 		inputValidation(userName, userFamily, userEmail, userTicket, remainingTicket)
 
 		remainingTicket = remainingTicket - userTicket
+
+		var userData = make(map[string]string)
 
 		if inputValidation() {
 			fmt.Printf("the remaining tickets is: %v\n", remainingTicket)
