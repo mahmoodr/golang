@@ -119,4 +119,3 @@ func sendTicket(userTickets uint, firstName string, lastName string, email strin
 	fmt.Println("#################")
 	wg.Done()
 }
-}
