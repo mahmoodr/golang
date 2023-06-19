@@ -1,5 +1,3 @@
-//code refactor
-
 package main
 
 import (
