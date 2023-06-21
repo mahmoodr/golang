@@ -70,7 +70,7 @@ func getFirstNames() []string {
 	for _, booking := range bookings {
 		firstNames = append(firstNames, booking.firstName)
 	}
-	return firstNames
+
 }
 
 func getUserInput() (string, string, string, uint) {
