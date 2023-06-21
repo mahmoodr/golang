@@ -91,7 +91,7 @@ func getUserInput() (string, string, string, uint) {
 	fmt.Println("Enter number of tickets: ")
 	fmt.Scan(&userTickets)
 
-	return firstName, lastName, email, userTickets
+	return firstName, lastName, email
 }
 
 func bookTicket(userTickets uint, firstName string, lastName string, email string) {
