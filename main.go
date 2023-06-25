@@ -41,7 +41,7 @@ func main() {
 
 		if remainingTickets == 0 {
 			// end program
-			fmt.Println("Our conference is booked out. Come back next year.")
+			fmt.Println("Our conference is  out. Come back next year.")
 			// break
 		}
 	} else {
