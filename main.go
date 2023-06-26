@@ -73,7 +73,7 @@ func getFirstNames() []string {
 	return firstNames
 }
 
-func getUserInput() (string, string, , uint) {
+func getUserInput() (string, string, string, uint) {
 	var firstName string
 	var lastName string
 	var email string
