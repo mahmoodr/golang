@@ -21,7 +21,7 @@ type UserData struct {
 
 var wg = sync.WaitGroup{}
 
-func () {
+func main() {
 
 	greetUsers()
 
