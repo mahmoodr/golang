@@ -13,7 +13,7 @@ var remainingTickets uint = 50
 var bookings = make([]UserData, 0)
 
 type UserData struct {
-	firstName       string
+	firstName
 	lastName        string
 	email           string
 	numberOfTickets uint
