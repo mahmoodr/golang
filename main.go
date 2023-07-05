@@ -16,7 +16,7 @@ type UserData struct {
 	firstName       string
 	lastName        string
 	email           string
-	numberOfTickets uint
+	numberOfTickets int
 }
 
 var wg = sync.WaitGroup{}
